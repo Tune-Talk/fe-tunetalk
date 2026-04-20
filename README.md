@@ -151,20 +151,8 @@ Render Playlist Cards
 
 ## 📸 Screenshots
 
-Place your UI screenshots in the following directory:
-
-```
-docs/
-└── screenshots/
-    ├── chat-interface.png
-    ├── loading-state.png
-    ├── response-output.png
-    └── playlist-display.png
-```
-
 ### Example Usage
 
-```md
 ## Chat Interface
 
 ![Chat](./docs/screenshots/chat-interface.png)
@@ -172,9 +160,6 @@ docs/
 ## Playlist Recommendation
 
 ![Playlist](./docs/screenshots/playlist-display.png)
-```
-
----
 
 ## 🔌 API Integration (Planned)
 
@@ -268,4 +253,6 @@ The frontend acts as:
 
 ## 👨‍💻 Author
 
-Frontend Engineer — TuneTalk Project
+1. Jesicca Anastasya - 535240052 - Frontend Developer
+2. Melisa Olivia - 535240056 - Fullstack Developer
+3. Gabriela Levani - 535240038 - Fullstack Developer
