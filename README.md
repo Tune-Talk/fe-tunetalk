@@ -9,10 +9,6 @@ TuneTalk is a **web-based chatbot interface** designed to:
 
 This frontend is part of an NLP-based system that processes user emotional input and returns supportive responses along with curated music suggestions.
 
-> ⚠️ This frontend is currently a **prototype (UI-focused)** and is **not yet integrated with backend APIs or NLP models**.
-
----
-
 ## 🚀 Getting Started
 
 ### 1. Install Dependencies
@@ -33,59 +29,7 @@ npm run dev
 http://localhost:5173
 ```
 
----
 
-## 🧱 Project Structure
-
-```
-fe-tunetalk/
-├── index.html
-├── package.json
-├── package-lock.json
-├── README.md
-├── .gitignore
-
-├── src/
-│   ├── main.tsx
-│   │
-│   ├── app/
-│   │   ├── App.tsx
-│   │   │
-│   │   ├── components/
-│   │   │   ├── ChatMessage.tsx
-│   │   │   ├── SongCard.tsx
-│   │   │   │
-│   │   │   ├── figma/
-│   │   │   │   └── ImageWithFallback.tsx
-│   │   │   │
-│   │   │   └── ui/
-│   │   │       ├── button.tsx
-│   │   │       ├── card.tsx
-│   │   │       ├── input.tsx
-│   │   │       ├── dialog.tsx
-│   │   │       ├── dropdown-menu.tsx
-│   │   │       ├── tabs.tsx
-│   │   │       ├── table.tsx
-│   │   │       ├── tooltip.tsx
-│   │   │       ├── form.tsx
-│   │   │       ├── utils.ts
-│   │   │       └── ...
-│   │   │
-│   │   ├── data/
-│   │   │   └── songs.ts
-│   │
-│   ├── imports/
-│   │   ├── image-1.png
-│   │   └── image-2.png
-│   │
-│   ├── styles/
-│   │   ├── index.css
-│   │   ├── tailwind.css
-│   │   ├── theme.css
-│   │   └── fonts.css
-```
-
----
 
 ## ✨ Features
 
@@ -195,22 +139,6 @@ POST /api/chat
 }
 ```
 
----
-
-## ⚠️ Disclaimer
-
-This project is currently under development.
-
-- ❌ Not integrated with backend (Flask API)
-- ❌ Not connected to NLP models (emotion detection, response generation)
-- ❌ Playlist is using static/mock data (`songs.ts`)
-
-### Current Status
-
-- ✅ UI/UX implemented
-- ✅ Component structure ready
-- ✅ Frontend flow designed
-
 ### Upcoming Work
 
 - 🔗 Backend API integration
@@ -253,6 +181,6 @@ The frontend acts as:
 
 ## 👨‍💻 Author
 
-1. Jesicca Anastasya - 535240052 - Frontend Developer
-2. Melisa Olivia - 535240056 - Fullstack Developer
+1. Melisa Olivia - 535240056 - Project Lead & Fullstack Developer
+2. Jesicca Anastasya - 535240052 - Frontend Developer
 3. Gabriela Levani - 535240038 - Fullstack Developer
