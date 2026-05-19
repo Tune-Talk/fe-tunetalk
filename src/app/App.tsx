@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, Loader2 } from "lucide-react";
 import { ChatMessage, Message } from "./components/ChatMessage";
-import { songsData, moodKeywords, Song } from "./data/songs";
+import { getUserId } from "./services/userId";
+import { postChat } from "./services/api";
 import logoImage from "../imports/image-2.png";
 import chatIconImage from "../imports/image-1.png";
 
@@ -27,89 +28,74 @@ export default function App() {
     scrollToBottom();
   }, [messages]);
 
-  const detectMood = (text: string): string | null => {
-    const lowerText = text.toLowerCase();
-
-    for (const [mood, keywords] of Object.entries(moodKeywords)) {
-      if (keywords.some((keyword) => lowerText.includes(keyword))) {
-        return mood;
-      }
-    }
-
-    return null;
-  };
-
-  const getRecommendations = (moodCategory: string): Song[] => {
-    const recommendations = songsData.filter((song) =>
-      song.mood_tag.toLowerCase() === moodCategory.toLowerCase()
-    );
-
-    // Shuffle and return 3 random songs
-    const shuffled = recommendations.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3);
-  };
-
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
 
-    const userMessage: Message = {
-      id: messages.length + 1,
-      type: "user",
-      text: inputValue,
-      timestamp: new Date(),
-    };
+    const wordCount = inputValue.trim().split(/\s+/).length;
+    if (wordCount < 5) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          type: "user" as const,
+          text: inputValue,
+          timestamp: new Date(),
+        },
+        {
+          id: prev.length + 2,
+          type: "bot" as const,
+          text: "Tolong ceritakan lebih detail ya, minimal 5 kata agar aku bisa memahami perasaanmu dengan lebih baik 💜",
+          timestamp: new Date(),
+          isError: true,
+        },
+      ]);
+      setInputValue("");
+      return;
+    }
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        type: "user" as const,
+        text: inputValue,
+        timestamp: new Date(),
+      },
+    ]);
     setInputValue("");
     setIsLoading(true);
 
-    // Simulate processing delay
-    setTimeout(() => {
-      const detectedMood = detectMood(inputValue);
+    try {
+      const userId = getUserId();
+      const response = await postChat(userId, inputValue);
 
-      if (detectedMood) {
-        setCurrentMood(detectedMood);
-        const recommendations = getRecommendations(detectedMood);
+      setCurrentMood(response.emotion.label);
 
-        if (recommendations.length > 0) {
-          const botMessage: Message = {
-            id: messages.length + 2,
-            type: "bot",
-            text: `Aku merasakan emosimu 🎵\n\nBerikut lagu-lagu yang dipilih khusus untukmu:`,
-            emotion: {
-              label: detectedMood,
-              confidence: 0.85 + Math.random() * 0.15, // Simulate confidence 0.85-1.0
-              secondary_emotion: undefined,
-            },
-            playlist: {
-              mood_category: detectedMood,
-              songs: recommendations,
-              total_songs: recommendations.length,
-            },
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, botMessage]);
-        } else {
-          const botMessage: Message = {
-            id: messages.length + 2,
-            type: "bot",
-            text: "Maaf, aku belum punya rekomendasi untuk mood tersebut. Coba ceritakan perasaanmu dengan kata lain! 💜",
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, botMessage]);
-        }
-      } else {
-        const botMessage: Message = {
-          id: messages.length + 2,
-          type: "bot",
-          text: "Hmm, aku belum bisa mendeteksi perasaanmu. Coba gunakan kata seperti:\n\n• Senang/Bahagia\n• Sedih/Galau\n• Semangat/Motivasi\n• Santai/Relax\n• Romantis/Cinta\n\nCeritakan lagi dong! 💜",
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          type: "bot" as const,
+          text: response.support_response.text,
+          emotion: response.emotion,
+          playlist: response.playlist,
           timestamp: new Date(),
-        };
-        setMessages((prev) => [...prev, botMessage]);
-      }
-
+        },
+      ]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          type: "bot" as const,
+          text: error instanceof Error ? error.message : "Terjadi kesalahan. Silakan coba lagi.",
+          timestamp: new Date(),
+          isError: true,
+        },
+      ]);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -125,13 +111,16 @@ export default function App() {
 
     switch (currentMood.toLowerCase()) {
       case "happy":
+      case "joy":
         return "from-amber-50/40 via-pink-50/30 to-orange-50/40";
       case "melancholic":
       case "sadness":
         return "from-purple-100/40 via-indigo-100/30 to-blue-900/20";
       case "energetic":
+      case "anger":
         return "from-orange-50/40 via-red-50/30 to-amber-50/40";
       case "calm":
+      case "anxiety":
         return "from-teal-50/40 via-cyan-50/30 to-blue-50/40";
       case "romantic":
         return "from-pink-50/40 via-rose-50/30 to-purple-50/40";
