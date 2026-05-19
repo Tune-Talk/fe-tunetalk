@@ -11,7 +11,7 @@ export default function App() {
     {
       id: 1,
       type: "bot",
-      text: "Halo! 👋 Aku TuneTalk, teman musik yang memahami perasaanmu.\n\nCeritakan bagaimana perasaanmu hari ini, dan aku akan menemukan lagu yang sempurna untukmu.\n\nContoh: \"Aku lagi sedih\", \"Aku butuh semangat\", \"Aku mau santai\"",
+      text: "Hello! 👋 I'm TuneTalk, your music companion who understands your feelings.\n\nTell me how you're feeling today, and I'll find the perfect song for you.\n\nExamples: \"I'm feeling sad\", \"I need motivation\", \"I want to relax\"",
       timestamp: new Date(),
     },
   ]);
