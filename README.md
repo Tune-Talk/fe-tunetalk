@@ -11,25 +11,32 @@ This frontend is part of an NLP-based system that processes user emotional input
 
 ## 🚀 Getting Started
 
-### 1. Install Dependencies
+### Step 1 - Clone the Repository
+
+```bash
+git clone https://github.com/Tune-Talk/fe-tunetalk.git
+cd fe_model-tunetalk
+```
+
+> Fork this repository first! Replace `<your-org>` with the actual GitHub org/username.
+
+### Step 2 - Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Run Development Server
+### Step 3 -Run Development Server
 
 ```bash
 npm run dev
 ```
 
-### 3. Open in Browser
+### Step 4 - Open in Browser
 
 ```
 http://localhost:5173
 ```
-
-
 
 ## ✨ Features
 
@@ -41,10 +48,10 @@ http://localhost:5173
 
 ---
 
-### ❤️ Empathetic Response (UI Only)
+### ❤️ Empathetic Response
 
 - Displays chatbot response as emotional support text
-- Currently mocked (not from NLP model yet)
+- Give emotional support text
 
 ---
 
@@ -56,22 +63,6 @@ http://localhost:5173
   - Artist name
   - Mood tag
   - Spotify link
-
----
-
-### ⏳ Loading State
-
-- Shows loading indicator during request simulation
-- Disables input while processing
-
----
-
-### ⚠️ Error Handling (Planned)
-
-- Will handle API errors (4xx / 5xx)
-- Will display user-friendly messages
-
----
 
 ## 🔄 Frontend Flow
 
@@ -97,11 +88,11 @@ Render Playlist Cards
 
 ### Example Usage
 
-## Chat Interface
+#### Chat Interface
 
 ![Chat](./docs/screenshots/chat-interface.png)
 
-## Playlist Recommendation
+### Playlist Recommendation
 
 ![Playlist](./docs/screenshots/playlist-display.png)
 
@@ -139,14 +130,6 @@ POST /api/chat
 }
 ```
 
-### Upcoming Work
-
-- 🔗 Backend API integration
-- 🧠 NLP model connection
-- 🎧 Spotify API integration
-
----
-
 ## 🧠 System Context
 
 This frontend is part of a larger system that includes:
@@ -167,17 +150,7 @@ The frontend acts as:
 - **React (Vite)**
 - **TypeScript**
 - **Tailwind CSS**
-- **Axios (planned)**
-
----
-
-## 📌 Notes
-
-- This is a **prototype/demo system**
-- Focus is on **interaction and usability**
-- Not intended for production deployment yet
-
----
+- **Axios**
 
 ## 👨‍💻 Author
 
